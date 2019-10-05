@@ -7,7 +7,7 @@
               password="coderslab"
               driverClassName="com.mysql.jdbc.Driver"
               connectionProperties="useUnicode=yes;characterEncoding=utf8;"
-              url="jdbc:mysql://localhost:3306/school"
+              url="jdbc:mysql://localhost:3306/szkola_programowania"
               maxTotal="100"
               maxIdle="30"
               maxWaitMillis="10000" />
