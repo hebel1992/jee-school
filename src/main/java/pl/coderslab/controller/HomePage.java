@@ -19,8 +19,8 @@ public class HomePage extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SolutionDao solutionDao = new SolutionDao();
-        int numberSolutions = Integer.parseInt(getServletContext().getInitParameter("number-solutions"));
-        List<Solution> recentSolutions = solutionDao.findRecent(numberSolutions);
+        int limit = Integer.parseInt(getServletContext().getInitParameter("number-solutions"));
+        List<Solution> recentSolutions = solutionDao.findRecent(limit);
 
         request.setAttribute("recent", recentSolutions);
 
