@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.coderslab.controller;
 
 import pl.coderslab.dao.GroupDao;
 import pl.coderslab.models.Group;
@@ -9,22 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
-@WebServlet("/testServlet")
-public class testServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
+@WebServlet("/groups")
+public class Groups extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Group userGroup = new Group("group1");
-
         GroupDao groupDao = new GroupDao();
-        groupDao.create(userGroup);
+        List<Group> groups = groupDao.findAll();
 
-        List<Group> all = Arrays.asList(groupDao.findAll());
-        response.getWriter().println(all);
+        request.setAttribute("groups", groups);
+
+        getServletContext().getRequestDispatcher("/groups.jsp")
+                .forward(request, response);
     }
 }

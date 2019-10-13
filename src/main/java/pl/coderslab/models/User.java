@@ -1,6 +1,6 @@
 package pl.coderslab.models;
 
-import pl.coderslab.utils.PasswordUtil;
+import pl.coderslab.Utils.PasswordUtil;
 
 public class User {
     private int id;

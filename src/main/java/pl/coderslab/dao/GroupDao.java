@@ -1,13 +1,14 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.models.Group;
 import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.models.Group;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupDao {
     private static final String CREATE_QUERY = "INSERT INTO user_group(name) VALUES (?)";
@@ -38,8 +39,8 @@ public class GroupDao {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
             boolean exist = false;
-            for (int i = 0; i < findAll().length; i++) {
-                if (findAll()[i].getId() == id) {
+            for (int i = 0; i < findAll().size(); i++) {
+                if (findAll().get(i).getId() == id) {
                     exist = true;
                 }
             }
@@ -85,16 +86,16 @@ public class GroupDao {
 
     }
 
-    public Group[] findAll() {
+    public List<Group> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
-            Group[] groups = new Group[0];
+            List<Group> groups = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
                 Group group = new Group();
                 group.setId(rs.getInt("id"));
                 group.setName(rs.getString("name"));
-                groups = addToArray(group, groups);
+                groups.add(group);
             }
             return groups;
         } catch (SQLException e) {
@@ -102,12 +103,6 @@ public class GroupDao {
             System.out.println("Nie mozna wczytac wszystkich wierszy z tabeli user_group");
             return null;
         }
-    }
-
-    private Group[] addToArray(Group group, Group[] groups) {
-        Group[] tmp = Arrays.copyOf(groups, groups.length + 1);
-        tmp[groups.length] = group;
-        return tmp;
     }
 }
 

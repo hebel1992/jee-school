@@ -1,10 +1,12 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.models.User;
 import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.models.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class UserDao {
@@ -61,8 +63,8 @@ public class UserDao {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
             boolean exist = false;
-            for (int i = 0; i < findAll().length; i++) {
-                if (findAll()[i].getId() == id) {
+            for (int i = 0; i < findAll().size(); i++) {
+                if (findAll().get(i).getId() == id) {
                     exist = true;
                 }
             }
@@ -115,9 +117,9 @@ public class UserDao {
         }
     }
 
-    public User[] findAll() {
+    public List<User> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
-            User[] users = new User[0];
+            List<User> users = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
@@ -127,7 +129,7 @@ public class UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                users = addToArray(user, users);
+                users.add(user);
             }
             return users;
         } catch (SQLException e) {
@@ -137,9 +139,9 @@ public class UserDao {
         }
     }
 
-    public User[] findAllByGroupId(int id) {
+    public List<User> findAllByGroupId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
-            User[] users = new User[0];
+            List<User> users = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_GROUP_ID_QUERY);
             preStmt.setInt(1, id);
             ResultSet rs = preStmt.executeQuery();
@@ -150,7 +152,7 @@ public class UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                users = addToArray(user, users);
+                users.add(user);
             }
             return users;
         } catch (SQLException e) {

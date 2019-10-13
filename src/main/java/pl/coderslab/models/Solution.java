@@ -9,6 +9,24 @@ public class Solution {
     private String description;
     private int exercise_id;
     private int user_id;
+    private String username;
+    private String exerciseTitle;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getExerciseTitle() {
+        return exerciseTitle;
+    }
+
+    public void setExerciseTitle(String exerciseTitle) {
+        this.exerciseTitle = exerciseTitle;
+    }
 
     public int getId() {
         return id;

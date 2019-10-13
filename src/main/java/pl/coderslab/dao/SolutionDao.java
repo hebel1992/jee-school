@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SolutionDao {
@@ -19,7 +18,7 @@ public class SolutionDao {
     private static final String FIND_ALL_QUERY = "SELECT * FROM solution";
     private static final String FIND_ALL_BY_USER_ID_QUERY = "SELECT * FROM solution WHERE user_id = ?";
     private static final String FIND_ALL_BY_EXERCISE_ID_QUERY = "SELECT * FROM solution WHERE exercise_id=? ORDER BY created";
-    private static final String FIND_RECENT_QUERY = "SELECT * FROM solution ORDER BY created DESC LIMIT ?";
+    private static final String FIND_RECENT_QUERY = "SELECT * FROM solution ORDER BY solution.created DESC LIMIT ?";
 
     public Solution create(Solution solution) {
         try (Connection conn = DBUtil.getConnection()) {
@@ -45,8 +44,8 @@ public class SolutionDao {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
             boolean exist = false;
-            for (int i = 0; i < findAll().length; i++) {
-                if (findAll()[i].getId() == id) {
+            for (int i = 0; i < findAll().size(); i++) {
+                if (findAll().get(i).getId() == id) {
                     exist = true;
                 }
             }
@@ -98,9 +97,9 @@ public class SolutionDao {
 
     }
 
-    public Solution[] findAll() {
+    public List<Solution> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()) {
@@ -111,7 +110,7 @@ public class SolutionDao {
                 solution.setCreated(rs.getTimestamp("created"));
                 solution.setUpdated(rs.getTimestamp("updated"));
                 solution.setDescription(rs.getString("description"));
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -121,9 +120,9 @@ public class SolutionDao {
         }
     }
 
-    public Solution[] findAllByUserId(int id) {
+    public List<Solution> findAllByUserId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_USER_ID_QUERY);
             preStmt.setInt(1, id);
             ResultSet rs = preStmt.executeQuery();
@@ -135,7 +134,7 @@ public class SolutionDao {
                 solution.setCreated(rs.getTimestamp("created"));
                 solution.setUpdated(rs.getTimestamp("updated"));
                 solution.setDescription(rs.getString("description"));
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -145,9 +144,9 @@ public class SolutionDao {
         }
     }
 
-    public Solution[] findAllByExerciseId(int id) {
+    public List<Solution> findAllByExerciseId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
-            Solution[] solutions = new Solution[0];
+            List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_EXERCISE_ID_QUERY);
             preStmt.setInt(1, id);
             ResultSet rs = preStmt.executeQuery();
@@ -159,7 +158,7 @@ public class SolutionDao {
                 solution.setCreated(rs.getTimestamp("created"));
                 solution.setUpdated(rs.getTimestamp("updated"));
                 solution.setDescription(rs.getString("description"));
-                solutions = addToArray(solution, solutions);
+                solutions.add(solution);
             }
             return solutions;
         } catch (SQLException e) {
@@ -190,11 +189,5 @@ public class SolutionDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private Solution[] addToArray(Solution solution, Solution[] solutions) {
-        Solution[] tmp = Arrays.copyOf(solutions, solutions.length + 1);
-        tmp[solutions.length] = solution;
-        return tmp;
     }
 }
