@@ -58,6 +58,11 @@ public class User {
         this.group_id = group_id;
     }
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = PasswordUtil.createHash(password);
+    }
     //Konstruktor do pobierania rekordu z bazy danych.
     public User() {
     }
