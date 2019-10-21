@@ -8,11 +8,11 @@
 <jsp:include page="header.jsp"/>
 <table border="1">
     <tr>
-        <td>Nazwa grupy</td>
-        <td>Akcje</td>
+        <td><strong>Nazwa grupy</strong></td>
+        <td><strong>Akcje</strong></td>
     </tr>
 
-    <h3>Lista grup</h3>
+    <h2>Lista grup:</h2>
 
     <c:forEach var="items" items="${groups}">
         <tr>

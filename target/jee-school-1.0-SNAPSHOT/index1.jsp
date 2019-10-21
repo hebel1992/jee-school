@@ -14,7 +14,7 @@
         <td>Wiecej</td>
     </tr>
 
-    <h3>Ostatnie rozwiazania</h3>
+    <h2>Ostatnio dodane rozwiazania:</h2>
 
     <c:forEach var="solution" items="${recent}">
         <tr>

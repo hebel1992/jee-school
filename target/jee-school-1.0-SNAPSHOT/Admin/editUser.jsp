@@ -11,16 +11,16 @@
 
 <form method="post" action="/editUser">
     <input type="hidden" value="${user.id}" name="userId">
-    Username: <input type="text" name="newName"><br/>
-    Email: <input type="text" name="newEmail"><br/>
-    Password: <input type="password" name="newPassword"><br/>
+    Nazwa: <input type="text" name="newName">
+    Email: <input type="text" name="newEmail">
+    Haslo: <input type="password" name="newPassword">
     Grupa: <select name="newGroupId">
         <option value="0">Bez grupy</option>
     <c:forEach var="item" items="${groups}">
         <option value="${item.id}">${item.name}</option>
     </c:forEach>
-    <br/>
-  <input type="submit" value="Zapisz zmiany">
+    
+    <p><input type="submit" value="Zapisz zmiany"></p>
 </form>
 
 <jsp:include page="../footer.jsp"/>

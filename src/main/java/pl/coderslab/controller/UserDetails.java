@@ -29,6 +29,7 @@ public class UserDetails extends HttpServlet {
 
         request.setAttribute("user", user);
         request.setAttribute("userSolutions", solutions);
+        request.setAttribute("size", solutions.size());
 
         getServletContext().getRequestDispatcher("/userDetails.jsp")
                 .forward(request, response);
