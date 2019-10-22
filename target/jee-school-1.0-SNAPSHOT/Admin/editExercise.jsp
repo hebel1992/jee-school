@@ -10,7 +10,7 @@
 <form method="post" action="/editExercise">
     Nowy tytul zadania: <input type="text" name="newTitle">
     Nowy opis zadania: <input type="text", name="newDescription">
-    <input type="submit" value="OK">
+    <input type="submit" value="Zapisz zmiany">
     <input type="hidden" name="id" value="${exercise.id}">
 </form>
 

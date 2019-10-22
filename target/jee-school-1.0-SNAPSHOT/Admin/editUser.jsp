@@ -19,7 +19,7 @@
     <c:forEach var="item" items="${groups}">
         <option value="${item.id}">${item.name}</option>
     </c:forEach>
-    
+
     <p><input type="submit" value="Zapisz zmiany"></p>
 </form>
 
