@@ -37,14 +37,10 @@ public class UserDetails extends HttpServlet {
     private List<Solution> getUserSolutions(int userId) {
         List<Solution> solutions = SolutionDao.findAllByUserId(userId);
 
-        List<Exercise> exercises = ExerciseDao.findAll();
-
         for (Solution s : solutions) {
-            for (Exercise e : exercises) {
-                if (e.getId() == s.getExercise_id()) {
-                    s.setExerciseTitle(e.getTitle());
-                }
-            }
+            int exerciseId = s.getExercise_id();
+            Exercise exercise = ExerciseDao.read(exerciseId);
+            s.setExerciseTitle(exercise.getTitle());
         }
         return solutions;
     }
