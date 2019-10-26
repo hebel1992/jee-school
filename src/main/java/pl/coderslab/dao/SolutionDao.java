@@ -1,6 +1,6 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.utils.DBUtil;
 import pl.coderslab.models.Solution;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class SolutionDao {
     private static final String FIND_ALL_BY_EXERCISE_ID_QUERY = "SELECT * FROM solution WHERE exercise_id=? ORDER BY created";
     private static final String FIND_RECENT_QUERY = "SELECT * FROM solution ORDER BY solution.created DESC LIMIT ?";
 
-    public Solution create(Solution solution) {
+    public static Solution create(Solution solution) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
             preStmt.setString(1, solution.getDescription());
@@ -39,7 +39,7 @@ public class SolutionDao {
         }
     }
 
-    public Solution read(int id) {
+    public static Solution read(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
@@ -71,7 +71,7 @@ public class SolutionDao {
         }
     }
 
-    public void update(Solution solution) {
+    public static void update(Solution solution) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(UPDATE_QUERY);
             preStmt.setString(1, solution.getDescription());
@@ -85,7 +85,7 @@ public class SolutionDao {
         }
     }
 
-    public void delete(int id) {
+    public static void delete(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(DELETE_QUERY);
             preStmt.setInt(1, id);
@@ -97,7 +97,7 @@ public class SolutionDao {
 
     }
 
-    public List<Solution> findAll() {
+    public static List<Solution> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
             List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);
@@ -120,7 +120,7 @@ public class SolutionDao {
         }
     }
 
-    public List<Solution> findAllByUserId(int id) {
+    public static List<Solution> findAllByUserId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_USER_ID_QUERY);
@@ -144,7 +144,7 @@ public class SolutionDao {
         }
     }
 
-    public List<Solution> findAllByExerciseId(int id) {
+    public static List<Solution> findAllByExerciseId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_EXERCISE_ID_QUERY);
@@ -168,7 +168,7 @@ public class SolutionDao {
         }
     }
 
-    public List<Solution> findRecent(int limit) {
+    public static List<Solution> findRecent(int limit) {
         try (Connection conn = DBUtil.getConnection()) {
             List<Solution> solutions = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_RECENT_QUERY);

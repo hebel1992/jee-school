@@ -1,7 +1,7 @@
-package pl.coderslab.controller.Admin.ManageGroups;
+package pl.coderslab.controller.admin.manageExercises;
 
-import pl.coderslab.dao.GroupDao;
-import pl.coderslab.models.Group;
+import pl.coderslab.dao.ExerciseDao;
+import pl.coderslab.models.Exercise;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,18 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addGroup")
-public class AddGroup extends HttpServlet {
+@WebServlet("/addExercise")
+public class AddExercise extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Group group = new Group(request.getParameter("name"));
-        GroupDao groupDao = new GroupDao();
-        groupDao.create(group);
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
 
-        response.sendRedirect("/displayGroups");
+        Exercise exercise = new Exercise(name, description);
+        ExerciseDao.create(exercise);
+
+        response.sendRedirect("/displayExercises");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/Admin/addGroup.jsp")
+        getServletContext().getRequestDispatcher("/Admin/addExercise.jsp")
                 .forward(request, response);
     }
 }

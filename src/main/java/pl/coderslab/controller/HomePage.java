@@ -30,13 +30,9 @@ public class HomePage extends HttpServlet {
     }
 
     private List<Solution> getRecentSolutions(int limit) {
-        SolutionDao solutionDao = new SolutionDao();
-        UserDao userDao = new UserDao();
-        ExerciseDao exerciseDao = new ExerciseDao();
-
-        List<Solution> recentSolutions = solutionDao.findRecent(limit);
-        List<User> recentSolutionsUser = userDao.findAll();
-        List<Exercise> recentSolutionsExercise = exerciseDao.findAll();
+        List<Solution> recentSolutions = SolutionDao.findRecent(limit);
+        List<User> recentSolutionsUser = UserDao.findAll();
+        List<Exercise> recentSolutionsExercise = ExerciseDao.findAll();
         for (Solution s : recentSolutions) {
             for (User u : recentSolutionsUser) {
                 if (s.getUser_id() == u.getId()) {

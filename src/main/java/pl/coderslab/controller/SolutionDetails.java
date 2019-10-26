@@ -17,8 +17,7 @@ public class SolutionDetails extends HttpServlet {
         String param = request.getParameter("solutionId");
         int solutionId = Integer.parseInt(param);
 
-        SolutionDao solutionDao = new SolutionDao();
-        Solution solution = solutionDao.read(solutionId);
+        Solution solution = SolutionDao.read(solutionId);
 
         response.getWriter()
                 .append(solution.getDescription());

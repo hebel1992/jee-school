@@ -1,6 +1,6 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.utils.DBUtil;
 import pl.coderslab.models.Group;
 
 import java.sql.Connection;
@@ -17,7 +17,7 @@ public class GroupDao {
     private static final String DELETE_QUERY = "DELETE FROM user_group WHERE id = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM user_group";
 
-    public Group create(Group group) {
+    public static Group create(Group group) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
             preStmt.setString(1, group.getName());
@@ -34,7 +34,7 @@ public class GroupDao {
         }
     }
 
-    public Group read(int id) {
+    public static Group read(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
@@ -62,7 +62,7 @@ public class GroupDao {
         }
     }
 
-    public void update(Group group) {
+    public static void update(Group group) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(UPDATE_QUERY);
             preStmt.setString(1, group.getName());
@@ -74,7 +74,7 @@ public class GroupDao {
         }
     }
 
-    public void delete(int id) {
+    public static void delete(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(DELETE_QUERY);
             preStmt.setInt(1, id);
@@ -86,7 +86,7 @@ public class GroupDao {
 
     }
 
-    public List<Group> findAll() {
+    public static List<Group> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
             List<Group> groups = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);

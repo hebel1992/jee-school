@@ -15,8 +15,7 @@ import java.util.List;
 public class Groups extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupDao groupDao = new GroupDao();
-        List<Group> groups = groupDao.findAll();
+        List<Group> groups = GroupDao.findAll();
 
         request.setAttribute("groups", groups);
 

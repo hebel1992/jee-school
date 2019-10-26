@@ -1,11 +1,10 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.utils.DBUtil;
 import pl.coderslab.models.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -18,7 +17,7 @@ public class UserDao {
     private static final String FIND_ALL_QUERY = "SELECT * FROM users";
     private static final String FIND_ALL_BY_GROUP_ID_QUERY = "SELECT * FROM users WHERE group_id = ?";
 
-    public User create(User user) {
+    public static User create(User user) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
             preStmt.setString(1, user.getUsername());
@@ -38,7 +37,7 @@ public class UserDao {
         }
     }
 
-    public User createWithoutGroup(User user) {
+    public static User createWithoutGroup(User user) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(CREATE_WITHOUT_GROUP_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
             preStmt.setString(1, user.getUsername());
@@ -57,7 +56,7 @@ public class UserDao {
         }
     }
 
-    public User read(int id) {
+    public static User read(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             User user = new User();
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
@@ -87,7 +86,7 @@ public class UserDao {
         }
     }
 
-    public void update(User user) {
+    public static void update(User user) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(UPDATE_QUERY);
             preStmt.setString(1, user.getUsername());
@@ -106,7 +105,7 @@ public class UserDao {
         }
     }
 
-    public void delete(int id) {
+    public static void delete(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(DELETE_QUERY);
             preStmt.setInt(1, id);
@@ -117,7 +116,7 @@ public class UserDao {
         }
     }
 
-    public List<User> findAll() {
+    public static List<User> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
             List<User> users = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_QUERY);
@@ -139,7 +138,7 @@ public class UserDao {
         }
     }
 
-    public List<User> findAllByGroupId(int id) {
+    public static List<User> findAllByGroupId(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             List<User> users = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FIND_ALL_BY_GROUP_ID_QUERY);
@@ -160,11 +159,5 @@ public class UserDao {
             System.out.println("Nie mozna wczytac wszystkich wierszy dla id grupy: " + id);
             return null;
         }
-    }
-
-    private User[] addToArray(User user, User[] users) {
-        User[] tmp = Arrays.copyOf(users, users.length + 1);
-        tmp[users.length] = user;
-        return tmp;
     }
 }

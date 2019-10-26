@@ -1,4 +1,4 @@
-package pl.coderslab.controller.Admin.ManageUsers;
+package pl.coderslab.controller.admin.manageUsers;
 
 import pl.coderslab.dao.UserDao;
 
@@ -12,8 +12,7 @@ import java.io.IOException;
 @WebServlet("/displayUsers")
 public class DisplayUsers extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDao userDao = new UserDao();
-        request.setAttribute("users", userDao.findAll());
+        request.setAttribute("users", UserDao.findAll());
 
         getServletContext().getRequestDispatcher("/Admin/displayUsers.jsp")
                 .forward(request, response);

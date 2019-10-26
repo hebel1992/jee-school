@@ -1,6 +1,6 @@
 package pl.coderslab.dao;
 
-import pl.coderslab.Utils.DBUtil;
+import pl.coderslab.utils.DBUtil;
 import pl.coderslab.models.Exercise;
 
 import java.sql.Connection;
@@ -17,7 +17,7 @@ public class ExerciseDao {
     private static final String DELETE_QUERY = "DELETE FROM exercise WHERE id = ?";
     private static final String FINAD_ALL_QUERRY = "SELECT * FROM exercise";
 
-    public Exercise create(Exercise exercise) {
+    public static Exercise create(Exercise exercise) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
             preStmt.setString(1, exercise.getTitle());
@@ -35,7 +35,7 @@ public class ExerciseDao {
         }
     }
 
-    public Exercise read(int id) {
+    public static Exercise read(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(READ_BY_ID_QUERY);
             preStmt.setInt(1, id);
@@ -64,7 +64,7 @@ public class ExerciseDao {
         }
     }
 
-    public void update(Exercise exercise) {
+    public static void update(Exercise exercise) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(UPDATE_QUERY);
             preStmt.setString(1, exercise.getTitle());
@@ -77,7 +77,7 @@ public class ExerciseDao {
         }
     }
 
-    public void delete(int id) {
+    public static void delete(int id) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement preStmt = conn.prepareStatement(DELETE_QUERY);
             preStmt.setInt(1, id);
@@ -88,7 +88,7 @@ public class ExerciseDao {
         }
     }
 
-    public List<Exercise> findAll() {
+    public static List<Exercise> findAll() {
         try (Connection conn = DBUtil.getConnection()) {
             List<Exercise> exercises = new ArrayList<>();
             PreparedStatement preStmt = conn.prepareStatement(FINAD_ALL_QUERRY);

@@ -22,8 +22,7 @@ public class UserDetails extends HttpServlet {
         String param = request.getParameter("param");
         int userId = Integer.parseInt(param);
 
-        UserDao userDao = new UserDao();
-        User user = userDao.read(userId);
+        User user = UserDao.read(userId);
 
         List<Solution> solutions = getUserSolutions(userId);
 
@@ -36,11 +35,9 @@ public class UserDetails extends HttpServlet {
     }
 
     private List<Solution> getUserSolutions(int userId) {
-        SolutionDao solutionDao = new SolutionDao();
-        List<Solution> solutions = solutionDao.findAllByUserId(userId);
+        List<Solution> solutions = SolutionDao.findAllByUserId(userId);
 
-        ExerciseDao exerciseDao = new ExerciseDao();
-        List<Exercise> exercises = exerciseDao.findAll();
+        List<Exercise> exercises = ExerciseDao.findAll();
 
         for (Solution s : solutions) {
             for (Exercise e : exercises) {

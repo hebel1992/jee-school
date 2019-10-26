@@ -1,4 +1,4 @@
-package pl.coderslab.controller.Admin.ManageUsers;
+package pl.coderslab.controller.admin.manageUsers;
 
 import pl.coderslab.dao.GroupDao;
 import pl.coderslab.dao.UserDao;
@@ -21,16 +21,14 @@ public class EditUser extends HttpServlet {
 
         int userId = Integer.parseInt(request.getParameter("userId"));
 
-        UserDao userDao = new UserDao();
-
         if (groupId != 0) {
             User user = new User(newName, newEmail, newPassword, groupId);
             user.setId(userId);
-            userDao.update(user);
+            UserDao.update(user);
         } else {
             User user = new User(newName, newEmail, newPassword);
             user.setId(userId);
-            userDao.update(user);
+            UserDao.update(user);
         }
 
         response.sendRedirect("/displayUsers");
@@ -39,11 +37,9 @@ public class EditUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("id"));
 
-        UserDao userDao = new UserDao();
-        request.setAttribute("user", userDao.read(userId));
+        request.setAttribute("user", UserDao.read(userId));
 
-        GroupDao groupDao = new GroupDao();
-        request.setAttribute("groups", groupDao.findAll());
+        request.setAttribute("groups", GroupDao.findAll());
 
         getServletContext().getRequestDispatcher("/Admin/editUser.jsp")
                 .forward(request, response);

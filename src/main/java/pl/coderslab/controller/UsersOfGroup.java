@@ -19,11 +19,9 @@ public class UsersOfGroup extends HttpServlet {
         String param = request.getParameter("param");
         int groupId = Integer.parseInt(param);
 
-        UserDao userDao = new UserDao();
-        GroupDao groupDao = new GroupDao();
-        String groupName = groupDao.read(groupId).getName();
+        String groupName = GroupDao.read(groupId).getName();
 
-        List<User> usersOfGroup = userDao.findAllByGroupId(groupId);
+        List<User> usersOfGroup = UserDao.findAllByGroupId(groupId);
 
         request.setAttribute("groupName", groupName);
         request.setAttribute("users", usersOfGroup);

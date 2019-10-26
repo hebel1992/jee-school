@@ -1,4 +1,4 @@
-package pl.coderslab.controller.Admin.ManageGroups;
+package pl.coderslab.controller.admin.manageGroups;
 
 import pl.coderslab.dao.GroupDao;
 
@@ -12,8 +12,7 @@ import java.io.IOException;
 @WebServlet("/displayGroups")
 public class DisplayGroups extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupDao groupDao = new GroupDao();
-        request.setAttribute("groups", groupDao.findAll());
+        request.setAttribute("groups", GroupDao.findAll());
 
         getServletContext().getRequestDispatcher("/Admin/displayGroups.jsp")
                 .forward(request, response);
