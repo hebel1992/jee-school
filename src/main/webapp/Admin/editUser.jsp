@@ -11,11 +11,10 @@
 
 <form method="post" action="/editUser">
     <input type="hidden" value="${user.id}" name="userId">
-    Nazwa: <input type="text" name="newName">
-    Email: <input type="text" name="newEmail">
-    Haslo: <input type="password" name="newPassword">
+    Nazwa: <input type="text" name="newName" value="${user.username}">
+    Email: <input type="text" name="newEmail" value="${user.email}">
     Grupa: <select name="newGroupId">
-        <option value="0">Bez grupy</option>
+        <option value="0" >Bez grupy</option>
     <c:forEach var="item" items="${groups}">
         <option value="${item.id}">${item.name}</option>
     </c:forEach>

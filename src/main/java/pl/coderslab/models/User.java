@@ -8,6 +8,15 @@ public class User {
     private String email;
     private String password;
     private int group_id;
+    private String group_name;
+
+    public String getGroup_name() {
+        return group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
+    }
 
     public int getId() {
         return id;

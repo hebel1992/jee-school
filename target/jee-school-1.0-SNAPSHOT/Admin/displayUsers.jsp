@@ -11,7 +11,7 @@
     <tr>
         <td>Nazwa uzytkownika</td>
         <td>Email</td>
-        <td>Id_grupy</td>
+        <td>Grupa</td>
         <td>Akcje</td>
     </tr>
     <p><a href="/addUser">Dodaj nowego uzytkownika</a></p>
@@ -19,7 +19,7 @@
         <tr>
             <td>${item.username}</td>
             <td>${item.email}</td>
-            <td>${item.group_id!=0 ? item.group_id : "brak grupy"}</td>
+            <td>${item.group_id!=0 ? item.group_name : "brak grupy"}</td>
             <td><a href="/editUser?id=${item.id}">Edytuj</a>/<a
                     href="/deleteUser?id=${item.id}">Usun</a></td>
         </tr>
