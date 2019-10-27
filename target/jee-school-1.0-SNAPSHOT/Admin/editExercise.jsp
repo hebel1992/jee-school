@@ -8,8 +8,8 @@
 <jsp:include page="../header.jsp"/>
 
 <form method="post" action="/editExercise">
-    Nowy tytul zadania: <input type="text" name="newTitle">
-    Nowy opis zadania: <input type="text", name="newDescription">
+    Nowy tytul zadania: <input type="text" name="newTitle" value="${exercise.title}">
+    Nowy opis zadania: <textarea name="newDescription">${exercise.description}</textarea>
     <input type="submit" value="Zapisz zmiany">
     <input type="hidden" name="id" value="${exercise.id}">
 </form>

@@ -8,7 +8,7 @@
 <jsp:include page="../header.jsp"/>
 
 <form method="post" action="/editGroup">
-    Nowa nazwa grupy: <input type="text" name="newName">
+    Nowa nazwa grupy: <input type="text" name="newName" value="${group.name}">
     <input type="submit" value="Zapisz zmiany">
     <input type="hidden" name="id" value="${group.id}">
 </form>

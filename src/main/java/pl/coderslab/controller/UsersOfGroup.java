@@ -25,6 +25,7 @@ public class UsersOfGroup extends HttpServlet {
 
         request.setAttribute("groupName", groupName);
         request.setAttribute("users", usersOfGroup);
+        request.setAttribute("size", usersOfGroup.size());
 
         getServletContext().getRequestDispatcher("/usersOfGroup.jsp")
                 .forward(request, response);
