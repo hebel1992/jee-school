@@ -13,7 +13,9 @@
     </tr>
 
     <h2>Lista grup:</h2>
-
+    <c:if test="${empty groups}">
+        <p>Nie znaleziono grup!</p>
+    </c:if>
     <c:forEach var="items" items="${groups}">
         <tr>
             <td>${items.name}</td>

@@ -24,11 +24,15 @@ public class EditGroup extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
+        if (id != null) {
+            int idToInt = Integer.parseInt(id);
+            request.setAttribute("group", GroupDao.read(idToInt));
 
-        request.setAttribute("group", GroupDao.read(id));
-
-        getServletContext().getRequestDispatcher("/Admin/editGroup.jsp")
-                .forward(request, response);
+            getServletContext().getRequestDispatcher("/Admin/editGroup.jsp")
+                    .forward(request, response);
+        } else {
+            response.sendRedirect("/displayGroups?error=Nie+odnaleziono+grupy!");
+        }
     }
 }

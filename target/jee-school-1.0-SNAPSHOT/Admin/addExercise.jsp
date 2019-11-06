@@ -7,8 +7,8 @@
 <jsp:include page="../header.jsp"/>
 <h3>Uzupelnij dane nowego zadania</h3>
 <form action="/addExercise" method="post">
-    Nazwa zadania<input type="text" name="name">
-    Opis zadania<input type="text" name="description">
+    Nazwa zadania<input type="text" name="name" required>
+    Opis zadania<input type="text" name="description" required>
     <input type="submit" value="Dodaj">
 </form>
 <jsp:include page="../footer.jsp"/>

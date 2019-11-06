@@ -7,7 +7,7 @@
 <jsp:include page="../header.jsp"/>
 <h3>Uzupelnij dane nowej grupy</h3>
 <form action="/addGroup" method="post">
-    Nazwa grupy<input type="text" name="name">
+    Nazwa grupy<input type="text" name="name" required>
     <input type="submit" value="Dodaj">
 </form>
 <jsp:include page="../footer.jsp"/>

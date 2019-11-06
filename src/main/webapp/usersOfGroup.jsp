@@ -8,6 +8,9 @@
 <jsp:include page="header.jsp"/>
 
 <h3>Lista uzytkownikow grupy: ${groupName}</h3>
+<c:if test="${empty groupName}">
+    <p>Nie znaleziono grupy!</p>
+</c:if>
 <c:if test="${size==0}">
     <p>Grupa nie posiada jeszcze zadnych uzytkownikow!</p>
 </c:if>

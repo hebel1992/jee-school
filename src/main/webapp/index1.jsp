@@ -6,6 +6,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+
+<h2>Ostatnio dodane rozwiazania:</h2>
+<c:if test="${empty recent}">
+    <p>Nie znaleziono rozwiazan!</p>
+</c:if>
 <table border="1">
     <tr>
         <td>Tytul zadania</td>
@@ -14,7 +19,7 @@
         <td>Wiecej</td>
     </tr>
 
-    <h2>Ostatnio dodane rozwiazania:</h2>
+
 
     <c:forEach var="solution" items="${recent}">
         <tr>

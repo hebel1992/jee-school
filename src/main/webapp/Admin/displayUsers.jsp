@@ -6,7 +6,8 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-<h3>Zarzadanie grupami uzytkownikow</h3>
+<h3>Zarzadanie uzytkownikami</h3>
+<font color="red"> ${not empty param.error ? param.error : ""}</font>
 <table border="1">
     <tr>
         <td>Nazwa uzytkownika</td>

@@ -23,11 +23,17 @@ public class DeleteUser extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
+        if (id != null) {
+            int idToInt = Integer.parseInt(id);
 
-        request.setAttribute("user", UserDao.read(id));
+            request.setAttribute("user", UserDao.read(idToInt));
 
-        getServletContext().getRequestDispatcher("/Admin/deleteUser.jsp")
-                .forward(request, response);
+            getServletContext().getRequestDispatcher("/Admin/deleteUser.jsp")
+                    .forward(request, response);
+        } else {
+            response.sendRedirect("/displayUsers?error=Nie+odnaleziono+uzytkownika!");
+
+        }
     }
 }

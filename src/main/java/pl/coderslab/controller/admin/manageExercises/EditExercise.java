@@ -26,11 +26,16 @@ public class EditExercise extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
+        if (id != null) {
+            int idToInt = Integer.parseInt(id);
 
-        request.setAttribute("exercise", ExerciseDao.read(id));
+            request.setAttribute("exercise", ExerciseDao.read(idToInt));
 
-        getServletContext().getRequestDispatcher("/Admin/editExercise.jsp")
-                .forward(request, response);
+            getServletContext().getRequestDispatcher("/Admin/editExercise.jsp")
+                    .forward(request, response);
+        }else {
+            response.sendRedirect("/displayExercises?error=Nie+odnaleziono+zadania!");
+        }
     }
 }

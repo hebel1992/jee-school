@@ -24,11 +24,15 @@ public class DeleteExercise extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
+        if(id!=null){
+            int idToInt = Integer.parseInt(request.getParameter("id"));
+            request.setAttribute("exercise", ExerciseDao.read(idToInt));
+            getServletContext().getRequestDispatcher("/Admin/deleteExercise.jsp")
+                    .forward(request, response);
+        }else {
+            response.sendRedirect("/displayExercises?error=Nie+odnaleziono+zadania!");
+        }
 
-        request.setAttribute("exercise", ExerciseDao.read(id));
-
-        getServletContext().getRequestDispatcher("/Admin/deleteExercise.jsp")
-                .forward(request, response);
     }
 }

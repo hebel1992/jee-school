@@ -7,6 +7,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <h3>Zarzadanie zadaniami</h3>
+<font color="red"> ${not empty param.error ? param.error : ""}</font>
 <table border="1">
     <tr>
         <td>Tytul zadania</td>

@@ -15,11 +15,16 @@ public class SolutionDetails extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String param = request.getParameter("solutionId");
-        int solutionId = Integer.parseInt(param);
+        if (param != null) {
+            int solutionId = Integer.parseInt(param);
 
-        Solution solution = SolutionDao.read(solutionId);
+            Solution solution = SolutionDao.read(solutionId);
 
-        response.getWriter()
-                .append(solution.getDescription());
+            response.getWriter()
+                    .append(solution.getDescription());
+        }else {
+            response.getWriter()
+                    .append("Nie odnaleziono rozwiazania!");
+        }
     }
 }

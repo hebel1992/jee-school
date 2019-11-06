@@ -17,15 +17,17 @@ public class UsersOfGroup extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String param = request.getParameter("param");
-        int groupId = Integer.parseInt(param);
 
-        String groupName = GroupDao.read(groupId).getName();
+        if (param != null) {
+            int groupId = Integer.parseInt(param);
+            String groupName = GroupDao.read(groupId).getName();
 
-        List<User> usersOfGroup = UserDao.findAllByGroupId(groupId);
+            List<User> usersOfGroup = UserDao.findAllByGroupId(groupId);
 
-        request.setAttribute("groupName", groupName);
-        request.setAttribute("users", usersOfGroup);
-        request.setAttribute("size", usersOfGroup.size());
+            request.setAttribute("groupName", groupName);
+            request.setAttribute("users", usersOfGroup);
+            request.setAttribute("size", usersOfGroup.size());
+        }
 
         getServletContext().getRequestDispatcher("/usersOfGroup.jsp")
                 .forward(request, response);

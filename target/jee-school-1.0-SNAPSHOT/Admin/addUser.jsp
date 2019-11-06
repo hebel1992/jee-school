@@ -8,9 +8,9 @@
 <jsp:include page="../header.jsp"/>
 <h3>Uzupelnij dane nowego uzytkownika</h3>
 <form action="/addUser" method="post">
-    Nazwa uzytkownika: <input type="text" name="name">
-    Email: <input type="text" name="email">
-    Haslo: <input type="password" name="password">
+    Nazwa uzytkownika: <input type="text" name="name" required>
+    Email: <input type="text" name="email" required>
+    Haslo: <input type="password" name="password" required>
     Grupa: <select name="groupId" >
         <option value="0">Bez grupy</option>
     <c:forEach var="item" items="${groups}">
