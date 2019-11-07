@@ -1,5 +1,6 @@
 package pl.coderslab.controller.admin.manageExercises;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.models.Exercise;
 
@@ -15,14 +16,17 @@ public class EditExercise extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newTitle = request.getParameter("newTitle");
         String newDescription = request.getParameter("newDescription");
+        String id = request.getParameter("id");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        if (StringUtils.isNumeric(id)) {
+            Exercise exercise = new Exercise(newTitle, newDescription);
+            exercise.setId(Integer.parseInt(id));
+            ExerciseDao.update(exercise);
 
-        Exercise exercise = new Exercise(newTitle, newDescription);
-        exercise.setId(id);
-        ExerciseDao.update(exercise);
-
-        response.sendRedirect("/displayExercises");
+            response.sendRedirect("/displayExercises");
+        }else{
+            response.sendRedirect("/displayExercises?Edycja+zakonczona+niepowodzeniem!");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +38,7 @@ public class EditExercise extends HttpServlet {
 
             getServletContext().getRequestDispatcher("/Admin/editExercise.jsp")
                     .forward(request, response);
-        }else {
+        } else {
             response.sendRedirect("/displayExercises?error=Nie+odnaleziono+zadania!");
         }
     }

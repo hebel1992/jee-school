@@ -21,17 +21,17 @@ public class UserDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String param = request.getParameter("param");
 
-        if(param!=null){
-        int userId = Integer.parseInt(param);
-        User user = UserDao.read(userId);
-        List<Solution> solutions = getUserSolutions(userId);
-        request.setAttribute("user", user);
-        request.setAttribute("userSolutions", solutions);
-        request.setAttribute("size", solutions.size());
+        if (param != null) {
+            int userId = Integer.parseInt(param);
+            User user = UserDao.read(userId);
+            List<Solution> solutions = getUserSolutions(userId);
+            request.setAttribute("user", user);
+            request.setAttribute("userSolutions", solutions);
+            request.setAttribute("size", solutions.size());
 
-        getServletContext().getRequestDispatcher("/userDetails.jsp")
-                .forward(request, response);}
-        else {
+            getServletContext().getRequestDispatcher("/userDetails.jsp")
+                    .forward(request, response);
+        } else {
             response.sendRedirect("/usersOfGroup?error=Nie+odnaleziono+uzytkownika!");
         }
     }

@@ -1,5 +1,6 @@
 package pl.coderslab.controller.admin.manageUsers;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.coderslab.dao.GroupDao;
 import pl.coderslab.dao.UserDao;
 import pl.coderslab.models.User;
@@ -17,26 +18,30 @@ public class EditUser extends HttpServlet {
         String newName = request.getParameter("newName");
         String newEmail = request.getParameter("newEmail");
         String newPassword = request.getParameter("newPassword");
-        int groupId = Integer.parseInt(request.getParameter("newGroupId"));
+        String groupId = request.getParameter("newGroupId");
 
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String userId = request.getParameter("userId");
 
-        if (groupId != 0) {
-            User user = new User(newName, newEmail, newPassword, groupId);
-            user.setId(userId);
-            UserDao.update(user);
-        } else {
-            User user = new User(newName, newEmail, newPassword);
-            user.setId(userId);
-            UserDao.update(user);
+        if (StringUtils.isNumeric(groupId) && StringUtils.isNumeric(userId)) {
+            if (Integer.parseInt(groupId) != 0) {
+                User user = new User(newName, newEmail, newPassword, Integer.parseInt(groupId));
+                user.setId(Integer.parseInt(userId));
+                UserDao.update(user);
+            } else {
+                User user = new User(newName, newEmail, newPassword);
+                user.setId(Integer.parseInt(userId));
+                UserDao.update(user);
+            }
+
+            response.sendRedirect("/displayUsers");
+        }else {
+            response.sendRedirect("/displayUsers?error=Edycja+uzytkownika+zakonczona+niepowodzeniem");
         }
-
-        response.sendRedirect("/displayUsers");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        if(id!=null){
+        if (id != null) {
             int idToInt = Integer.parseInt(id);
 
             request.setAttribute("user", UserDao.read(idToInt));
@@ -45,7 +50,7 @@ public class EditUser extends HttpServlet {
 
             getServletContext().getRequestDispatcher("/Admin/editUser.jsp")
                     .forward(request, response);
-        }else {
+        } else {
             response.sendRedirect("/displayUsers?error=Nie+odnaleziono+uzytkownika");
         }
 

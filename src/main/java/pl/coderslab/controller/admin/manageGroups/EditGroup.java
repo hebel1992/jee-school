@@ -1,5 +1,6 @@
 package pl.coderslab.controller.admin.manageGroups;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.coderslab.dao.GroupDao;
 import pl.coderslab.models.Group;
 
@@ -14,13 +15,17 @@ import java.io.IOException;
 public class EditGroup extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newName = request.getParameter("newName");
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
 
+        if(StringUtils.isNumeric(id)){
         Group group = new Group(newName);
-        group.setId(id);
+        group.setId(Integer.parseInt(id));
         GroupDao.update(group);
 
-        response.sendRedirect("/displayGroups");
+        response.sendRedirect("/displayGroups");}
+        else {
+            response.sendRedirect("/displayGroups?Edycja+grupy+zakonczona+niepowodzeniem");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
